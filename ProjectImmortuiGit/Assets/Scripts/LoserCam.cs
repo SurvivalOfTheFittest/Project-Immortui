@@ -21,9 +21,16 @@ public class LoserCam : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-            string label = "YOUR BRAIN WAS VERY TASTY!!";
-        Vector2 textsize = loserStyle.CalcSize(new GUIContent(label));
-        GUI.Label(new Rect(Screen.width/2 -textsize.x,Screen.height/2 - textsize.y,textsize.x,textsize.y),label,loserStyle);
+        else
+        {
+           
+            if (meshub.GetMesBool("lost"))
+            {
+                string label = "YOUR BRAIN WAS VERY TASTY!!";
+                Vector2 textsize = loserStyle.CalcSize(new GUIContent(label));
+                GUI.Label(new Rect(Screen.width / 2 - textsize.x/2, Screen.height / 2 - textsize.y/2, textsize.x, textsize.y), label, loserStyle);
+            }
+        }
        /* if (GUI.Button(new Rect(Screen.width - 70, Screen.height - 70, 70, 70), "QUIT")) {
             Debug.Log("ghgfd");
 #if UNITY_EDITOR

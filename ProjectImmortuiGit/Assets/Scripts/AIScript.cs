@@ -14,6 +14,7 @@ public class AIScript : MonoBehaviour {
     public float MeleeRange;
     public int MeleeDamage;
     public float MeleeRate;
+    public GameObject Explosion;
     int zombieskilled =0;
     float curtime;
     public int health = 100;
@@ -41,7 +42,7 @@ public class AIScript : MonoBehaviour {
         meshub.setMesPos("amountZombies", aZ);
         Vector3 aZK = meshub.GetMesPos("zombiesLeft");
         aZK.x--;
-       
+        GameObject.Instantiate(Explosion, this.transform.position, this.transform.rotation);        
         meshub.setMesPos("zombiesLeft",aZK);
         Destroy(this.gameObject);
     }
@@ -72,7 +73,7 @@ public class AIScript : MonoBehaviour {
                 default: break;
             }
             UpdateState();
-            Physics.Raycast(this.transform.position, (meshub.GetMesPos("playerpos") - this.transform.position).normalized, out hitinfo, this.transform.localScale.x + MeleeRange);
+            if (meshub.IsMesPosSet("playerpos")) Physics.Raycast(this.transform.position, (meshub.GetMesPos("playerpos") - this.transform.position).normalized, out hitinfo, this.transform.localScale.x + MeleeRange);
             if (hitinfo.collider != null)
             {
                 if (hitinfo.collider.CompareTag("Player") && curtime >= MeleeRate)
@@ -81,7 +82,6 @@ public class AIScript : MonoBehaviour {
                     curtime = 0.0f;
                 }
             }
-            navagent.SetDestination(meshub.GetMesPos("playerpos"));
             if (meshub.IsMesPosSet("playerpos")) navagent.SetDestination(meshub.GetMesPos("playerpos"));
 
             curtime += Time.deltaTime;

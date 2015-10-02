@@ -19,7 +19,7 @@ public class ZombieSpawner : MonoBehaviour {
         meshub.setMesPos("maxZombies", new Vector3((float)MaxZombies, 0, 0));
    
         meshub.setMesPos("amountZombies", new Vector3(0.0f,0,0));
-  
+        meshub.setMesBool("zombiereset", false);
         spawntime = Random.Range(minWait, maxWait);
     }
 
@@ -44,11 +44,16 @@ public class ZombieSpawner : MonoBehaviour {
                 meshub.setMesPos("amountZombies", aZ);
 
             }
-           
+            
             curtime += Time.deltaTime;
         }
         else {
+            if (meshub.GetMesBool("zombiereset")) {
+                curZombies = 0;
+                meshub.setMesBool("zombiereset", false);
 
+
+            }
         }
         if (meshub.GetMesPos("zombiesLeft").x <= 0) { meshub.setMesBool("gamedone", true); }
             
